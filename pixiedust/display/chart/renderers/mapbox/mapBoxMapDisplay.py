@@ -109,7 +109,7 @@ class MapViewDisplay(MapBoxBaseDisplay):
         if self.options.get("kind") != "simple" and len(valueFields) > 0:
             minval = df[valueFields[0]].min()
             maxval = df[valueFields[0]].max()
-            bins = [ (minval,'#ffffcc'), (df[valueFields[0]].quantile(0.25),'#a1dab4'), (df[valueFields[0]].quantile(0.5),'#41b6c4'), (df[valueFields[0]].quantile(0.75),'#2c7fb8'), (maxval,'#253494') ]
+            bins = [ (minval,'#0000ff'), (df[valueFields[0]].quantile(0.25),'#4400bb'), (df[valueFields[0]].quantile(0.5),'#880088'), (df[valueFields[0]].quantile(0.75),'#bb0044'), (maxval,'#ff0000') ]
             paint['circle-opacity'] = 0.85
             paint['circle-color'] = {"property":mapValueField}
             paint['circle-color']['stops'] = []

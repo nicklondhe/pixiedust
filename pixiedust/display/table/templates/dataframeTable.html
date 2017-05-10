@@ -176,7 +176,15 @@
               {% for row in rows %}
               <tr>
                 {% for field in entity.getFields() %}
-                <td>{{row[field.name]}}</td>
+                <td>
+                {% if field.name == 'url' %}
+                <a href='{{row[field.name]}}'>
+                {% endif %}
+                {{row[field.name]}}
+                {% if field.name == 'url' %}
+                </a>
+                {% endif %}
+                </td>
                 {% endfor %}
               </tr>
               {% endfor %}
