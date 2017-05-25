@@ -27,6 +27,8 @@
     font-weight: 300;
     letter-spacing: 0.5px;
     line-height: normal;
+    height: inherit;
+    overflow: auto;
   }
   .df-table-search-count {
     display: inline-block;
@@ -45,8 +47,6 @@
     min-width: 100%;
     padding: 0;
     table-layout: fixed;
-    height: inherit;
-    overflow: auto;
   }
   .df-table-wrapper tr.hidden {
     display: none;
@@ -160,7 +160,9 @@
           <div class="fixed-header">
             <div class="fixed-row">
               {% for field in entity.getFields() %}
+              {% if not table_showcols or field.name in table_showcols %}
               <div class="fixed-cell">{{field.name | decodeUTF8 }}</div>
+              {% endif %}
               {% endfor %}
             </div>
           </div>
@@ -170,7 +172,9 @@
             <thead>
               <tr>
                 {% for field in entity.getFields() %}
+                {% if not table_showcols or field.name in table_showcols %}
                 <th><div>{{field.name | decodeUTF8 }}</div></th>
+                {% endif %}
                 {% endfor %}
               </tr>
             </thead>
@@ -178,7 +182,9 @@
               {% for row in rows %}
               <tr>
                 {% for field in entity.getFields() %}
+                {% if not table_showcols or field.name in table_showcols %}
                 <td>{{row[field.name]}}</td>
+                {% endif %}
                 {% endfor %}
               </tr>
               {% endfor %}
@@ -210,6 +216,21 @@
       fixedHeader.css({ left: table.position().left });
     });
 
+    rows.on("click", function(e){
+        var txt = e.delegateTarget.innerText;
+        var splits = txt.split("\t");
+        var len = splits.length;
+        var hdrs = $(fixedHeader).find(".fixed-cell");
+        var payload = {type:"select", targetDivId: "{{this.options.get("targetDivId","") }}" };
+
+        for (var i = 0; i < len; i++) {
+          payload[hdrs[i].innerHTML] = splits[i];
+        }
+
+         $(document).trigger('pd_event', payload);
+
+    });
+
     $('.df-table-search', tableWrapper).keyup(function() {
       var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$';
       var reg = RegExp(val, 'i');
@@ -227,4 +248,6 @@
       $('.df-table-search-count', tableWrapper).html('Showing ' + index + ' of ' + total);
     });
   });
+
+  $(".df-table-wrapper td:contains('http://')").each(function(){var tc = this.textContent; $(this).wrapInner("<a href='" + tc + "'/>");})
 </script>

@@ -46,6 +46,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
 </div>
 {%endif%}
 
+
 <script>
     window.maploadtime = 1;
     mapboxgl.accessToken="{{this.options.get('mapboxtoken')}}";
@@ -107,6 +108,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                 "source": "pxdatasource", 
                 "paint": {{this.options.get("mapStyle")}}
             });
+            
             if (clusterme) {
                 map.addLayer({
                     "id": "cluster-count-labels", 
@@ -140,7 +142,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-75.492012, 5.135184]
                   },
                   "properties" : {
-                    "icon" : "monument"
+                    "icon" : "star"
                   }
                 }, {
                   "type": "Feature",
@@ -149,7 +151,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-75.56366, 5.038081]
                   },
                   "properties" : {
-                    "icon" : "monument"
+                    "icon" : "star"
                   }
                 }, {
                   "type": "Feature",
@@ -158,7 +160,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-75.60664, 4.95691]
                   },
                   "properties" : {
-                    "icon" : "monument"
+                    "icon" : "star"
                   }
                 }, {
                   "type": "Feature",
@@ -167,7 +169,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-75.70384, 4.837534]
                   },
                   "properties" : {
-                    "icon" : "monument"
+                    "icon" : "star"
                   }
                 }, {
                   "type": "Feature",
@@ -176,7 +178,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-75.595299, 4.623735]
                   },
                   "properties" : {
-                    "icon" : "monument"
+                    "icon" : "star"
                   }
                 }, {
                   "type": "Feature",
@@ -185,7 +187,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-75.578984, 4.640954]
                   },
                   "properties" : {
-                    "icon" : "monument"
+                    "icon" : "star"
                   }
                 }, {
                   "type": "Feature",
@@ -194,7 +196,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-75.595299, 4.623735]
                   },
                   "properties" : {
-                    "icon" : "monument"
+                    "icon" : "star"
                   }
                 }, {
                   "type": "Feature",
@@ -203,7 +205,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-75.589196, 4.62332]
                   },
                   "properties" : {
-                    "icon" : "monument"
+                    "icon" : "star"
                   }
                 }, {
                   "type": "Feature",
@@ -212,7 +214,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-75.760834, 4.622627]
                   },
                   "properties" : {
-                    "icon" : "monument"
+                    "icon" : "star"
                   }
                 }, {
                   "type": "Feature",
@@ -221,7 +223,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-74.094986, 11.122935]
                   },
                   "properties" : {
-                    "icon" : "monument"
+                    "icon" : "star"
                   }
                 }, {
                   "type": "Feature",
@@ -230,7 +232,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-75.496809, 5.07323]
                   },
                   "properties" : {
-                    "icon" : "harbor"
+                    "icon" : "circle"
                   }
                 }, {
                   "type": "Feature",
@@ -239,7 +241,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-75.761865,  4.625907]
                   },
                   "properties" : {
-                    "icon" : "harbor"
+                    "icon" : "circle"
                   }
                 }, {
                   "type": "Feature",
@@ -248,7 +250,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-74.072092, 4.710989]
                   },
                   "properties" : {
-                    "icon" : "cafe"
+                    "icon" : "triangle"
                   }
                 }, {
                   "type": "Feature",
@@ -257,7 +259,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "coordinates": [-75.636307, 6.09595 ]
                   },
                   "properties" : {
-                    "icon" : "cafe"
+                    "icon" : "triangle"
                   }
                 }]
               }
@@ -267,6 +269,7 @@ body { background-color:#333; margin:0px !important; overflow: hidden;font-famil
                     "icon-size" : 2
                 }
           });
+
         {% else %}
         map.addSource("pxdatasource", {
             "type":"geojson",

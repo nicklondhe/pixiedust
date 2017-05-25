@@ -105,6 +105,20 @@ class MapViewDisplay(MapBoxBaseDisplay):
         paint = {'circle-radius':12,'circle-color':'#ff0000'}
         paint['circle-opacity'] = 1.0 if (self.options.get("kind") and self.options.get("kind").find("cluster") >= 0) else 0.25
 
+        if self.options.get("groupBy"):
+            sercolors = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"]
+            grpkey = self.options.get("groupBy")
+            grpoptions = df[grpkey].unique()
+            ccol = {'property' : grpkey, 'type' : 'categorical'}
+            idx = 0
+            stoprows = []
+            for g in grpoptions:
+                stoprows.append([g, sercolors[idx]])
+                idx = idx + 1
+
+            ccol['stops'] = stoprows
+            paint['circle-color'] = ccol 
+
         bins = []
 
         if len(valueFields) > 0:

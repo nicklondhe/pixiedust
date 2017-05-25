@@ -28,7 +28,13 @@ class TableDisplay(Display):
             else:
                 entity=entity.vertices
         if dataFrameMisc.isPySparkDataFrame(entity) or dataFrameMisc.isPandasDataFrame(entity):
-            self._addHTMLTemplate('dataframeTable.html', entity=PandasDataFrameAdapter(entity), table_noschema=self.options.get("table_noschema", "false"))
+            scmap = {}
+            if "showColumns" in self.options:
+                scarr = self.options.get("showColumns").split(",")
+                for s in scarr:
+                    scmap[s] = 1
+
+            self._addHTMLTemplate('dataframeTable.html', entity=PandasDataFrameAdapter(entity), table_noschema=self.options.get("table_noschema", "false"), table_showcols=scmap)
             return
   
         self._addHTML("""
