@@ -227,6 +227,8 @@
           payload[hdrs[i].innerHTML] = splits[i];
         }
 
+        $(this).addClass("selected").siblings().removeClass("selected");
+
          $(document).trigger('pd_event', payload);
 
     });
@@ -249,5 +251,6 @@
     });
   });
 
-  $(".df-table-wrapper td:contains('http://')").each(function(){var tc = this.textContent; $(this).wrapInner("<a href='" + tc + "'/>");})
+  $(".df-table-wrapper td:contains('http://')").each(function(){var tc = this.textContent; $(this).wrapInner("<a href='" + tc + "'/>");});
+  $(".df-table-wrapper td:contains('https://')").each(function(){var tc = this.textContent; $(this).wrapInner("<a href='" + tc + "'/>");})
 </script>
