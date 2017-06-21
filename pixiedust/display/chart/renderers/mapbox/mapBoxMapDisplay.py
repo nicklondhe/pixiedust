@@ -105,7 +105,7 @@ class MapViewDisplay(MapBoxBaseDisplay):
         self.options["mapData"] = json.dumps(pygeojson,default=defaultJSONEncoding)
 
         paint = {'circle-radius':12,'circle-color':'#ff0000'}
-        paint['circle-opacity'] = 1.0 if (self.options.get("kind") and self.options.get("kind").find("cluster") >= 0) else 0.25
+        #paint['circle-opacity'] = 1.0 if (self.options.get("kind") and self.options.get("kind").find("cluster") >= 0) else 0.25
 
         bins = []
 
@@ -120,7 +120,7 @@ class MapViewDisplay(MapBoxBaseDisplay):
             minval = df[valueFields[0]].min()
             maxval = df[valueFields[0]].max()
             bins = [ (minval,'#0000ff'), (df[valueFields[0]].quantile(0.25),'#4400bb'), (df[valueFields[0]].quantile(0.5),'#880088'), (df[valueFields[0]].quantile(0.75),'#bb0044'), (maxval,'#ff0000') ]
-            paint['circle-opacity'] = 0.85
+            #paint['circle-opacity'] = 0.85
             paint['circle-color'] = {"property":mapValueField}
             paint['circle-color']['stops'] = []
             for bin in bins: 
