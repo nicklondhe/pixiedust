@@ -21,8 +21,8 @@
         background-color: rgba(255,255,255, 0.75);
         border-radius: 3px;
         position: absolute;
-        left: calc(100% - 172px);
-        top: 14px;
+        right: 30px;
+        bottom: 14px;
         box-shadow: 0 1px 2px rgba(0,0,0,0.10);
         font-size: 12px;
         line-height: 18px;
@@ -52,8 +52,8 @@
 
 {%if this.options.get("legend") == "true" %}
 <div id="maplegend" class="legend">
-    {% if this.options.get("kind") and this.options.get("kind").find("simple") < 0 %}
-        <h4>{{this.options.get("mapValueField")}}</h4>
+    {% if this.options.get("kind") and this.options.get("kind") != "simple-cluster" %}
+        <h4>{{this.options.get("groupBy")}}</h4>
         {% for bin in bins %}
         <div><span style="background-color: {{bin[1]}}"></span>{{bin[0]}}</div>
         {% endfor %}

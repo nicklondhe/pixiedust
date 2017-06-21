@@ -119,12 +119,36 @@ class MapViewDisplay(MapBoxBaseDisplay):
         if self.options.get("kind") and self.options.get("kind").find("simple") < 0 and len(valueFields) > 0:
             minval = df[valueFields[0]].min()
             maxval = df[valueFields[0]].max()
-            bins = [ (minval,'#ffffcc'), (df[valueFields[0]].quantile(0.25),'#a1dab4'), (df[valueFields[0]].quantile(0.5),'#41b6c4'), (df[valueFields[0]].quantile(0.75),'#2c7fb8'), (maxval,'#253494') ]
+            bins = [ (minval,'#0000ff'), (df[valueFields[0]].quantile(0.25),'#4400bb'), (df[valueFields[0]].quantile(0.5),'#880088'), (df[valueFields[0]].quantile(0.75),'#bb0044'), (maxval,'#ff0000') ]
             paint['circle-opacity'] = 0.85
             paint['circle-color'] = {"property":mapValueField}
             paint['circle-color']['stops'] = []
             for bin in bins: 
                 paint['circle-color']['stops'].append( [bin[0], bin[1]] )
+
+
+        if self.options.get("groupBy"):
+            bins = []
+            sercolors = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"]
+            grpkey = self.options.get("groupBy")
+            grpoptions = df[grpkey].unique()
+            ccol = {'property' : grpkey, 'type' : 'categorical'}
+            idx = 0
+            stoprows = []
+            for g in grpoptions:
+                stoprows.append([g, sercolors[idx]])
+                bins.append((g, sercolors[idx]))
+                idx = idx + 1
+
+            if len(bins) > 1:
+                bn = []
+                bn.append((bins[0][0], bins[1][1]))
+                bn.append((bins[1][0], bins[0][1]))
+                bins = bn
+                
+            ccol['stops'] = stoprows
+            paint['circle-color'] = ccol 
+
         self.options["mapStyle"] = json.dumps(paint,default=defaultJSONEncoding)
         w = self.getPreferredOutputWidth()
         h = self.getPreferredOutputHeight()
