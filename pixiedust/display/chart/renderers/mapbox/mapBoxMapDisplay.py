@@ -102,6 +102,7 @@ class MapViewDisplay(MapBoxBaseDisplay):
                 feature['properties'][allProps[idx]] = row[valueFieldIdx+1]
             pygeojson['features'].append(feature)
 
+
         self.options["mapData"] = json.dumps(pygeojson,default=defaultJSONEncoding)
 
         paint = {'circle-radius':12,'circle-color':'#ff0000'}
@@ -129,22 +130,21 @@ class MapViewDisplay(MapBoxBaseDisplay):
 
         if self.options.get("groupBy"):
             bins = []
-            sercolors = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"]
+            #sercolors = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"]
+            serMap = {"Flood" : "#00ff00", "Protest" : "#ff0000", "Riot" : "#0000ff", "Disruption" : "#00ffff"}
             grpkey = self.options.get("groupBy")
             grpoptions = df[grpkey].unique()
             ccol = {'property' : grpkey, 'type' : 'categorical'}
-            idx = 0
             stoprows = []
             for g in grpoptions:
-                stoprows.append([g, sercolors[idx]])
-                bins.append((g, sercolors[idx]))
-                idx = idx + 1
+                stoprows.append([g, serMap[g]])
+                bins.append((g, serMap[g]))
 
-            if len(bins) > 1 and bins[0][0] < bins[1][0]:
-                bn = []
-                bn.append((bins[0][0], bins[1][1]))
-                bn.append((bins[1][0], bins[0][1]))
-                bins = bn
+            #if len(bins) > 1 and bins[0][0] < bins[1][0]:
+             #   bn = []
+              #  bn.append((bins[0][0], bins[1][1]))
+               # bn.append((bins[1][0], bins[0][1]))
+               # bins = bn
                 
             ccol['stops'] = stoprows
             paint['circle-color'] = ccol 

@@ -115,6 +115,15 @@
             {% if this.options.get("kind") and this.options.get("kind").find("cluster") >= 0 %}
                 clusterme = true;
             {% endif %}
+
+            if (mapdata["features"].length == 2 && mapdata["features"][0]["properties"]["type"] == "Flood" &&
+                 mapdata["features"][1]["properties"]["type"] == "Protest" &&
+                 mapdata["features"][0]["properties"]["count"] > mapdata["features"][1]["properties"]["count"]) {
+                var t = mapdata["features"][0]["geometry"];
+                mapdata["features"][0]["geometry"] = mapdata["features"][1]["geometry"];
+                mapdata["features"][1]["geometry"] = t;
+            }
+
             map.addSource("pxdatasource", {
                 "type":"geojson",
                 "data":mapdata,
