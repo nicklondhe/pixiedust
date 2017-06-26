@@ -140,7 +140,7 @@ class MapViewDisplay(MapBoxBaseDisplay):
                 bins.append((g, sercolors[idx]))
                 idx = idx + 1
 
-            if len(bins) > 1:
+            if len(bins) > 1 and bins[0][0] < bins[1][0]:
                 bn = []
                 bn.append((bins[0][0], bins[1][1]))
                 bn.append((bins[1][0], bins[0][1]))
