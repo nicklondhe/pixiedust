@@ -71,7 +71,7 @@ class MapViewDisplay(GoogleBaseDisplay):
         if self.options.get("mapDisplayMode") != "region" and (apikey is None or len(apikey)<5):
             return self.renderTemplate("noapikey.html")
             
-        if self.options["mapRegion"] == "US":
+        if self.options["mapRegion"] == "CO":
             self.options["mapResolution"] = "provinces"
         else:
             self.options["mapResolution"] = "countries"
