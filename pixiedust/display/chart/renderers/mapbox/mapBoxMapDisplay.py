@@ -22,6 +22,7 @@ from pixiedust.utils.shellAccess import ShellAccess
 import json 
 import numpy
 import geojson
+import uuid
 
 def defaultJSONEncoding(o):
     if isinstance(o, numpy.integer): 
@@ -171,8 +172,9 @@ class MapViewDisplay(MapBoxBaseDisplay):
                     self.debug("Invalid GeoJSON: {0}".format(str(v["source"]["data"])))
         self.debug("userlayers length: "+str(len(userlayers)))
         # end handle custom layers
-
-        body = self.renderTemplate("mapView.html", bins=bins, userlayers=userlayers, prefwidth=w, prefheight=h)
+	
+	uniqueid = str(uuid.uuid4())[:8]
+        body = self.renderTemplate("mapView.html", bins=bins, userlayers=userlayers, prefwidth=w, prefheight=h, randomid=uniqueid)
         return self.renderTemplate("iframesrcdoc.html", body=body, prefwidth=w, prefheight=h)
 
     def isLatLonChart(self):
