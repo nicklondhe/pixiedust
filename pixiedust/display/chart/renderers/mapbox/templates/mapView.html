@@ -6,6 +6,7 @@
     <title>Pixiedust Mapbox map</title>
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js"></script>
     <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css" rel="stylesheet" />
+    <link href="https://www.mapbox.com/base/latest/base.css" rel="stylesheet" />
     <style>
     .mapboxgl-popup-content h3 { 
         margin: 2px 0 2px 0;
@@ -21,7 +22,7 @@
         background-color: rgba(255,255,255, 0.75);
         border-radius: 3px;
         position: absolute;
-        right: 30px;
+        right: 50px;
         bottom: 14px;
         box-shadow: 0 1px 2px rgba(0,0,0,0.10);
         font-size: 12px;
@@ -81,7 +82,7 @@
                 popuphtml += "<hr>\n";
             }
             hr=true;
-            popuphtml += "<h3>"+f.layer.id.toUpperCase()+"</h3>\n";
+            /*popuphtml += "<h3>"+f.layer.id.toUpperCase()+"</h3>\n";*/
             var keylength = Object.keys(f.properties).length;
             for (var key in f.properties) {
                 popuphtml += "<b>"+key+": </b> "+f.properties[key]+"<br/>\n";
@@ -156,7 +157,7 @@
                 });
             }
 
-            map.addLayer({
+           /* map.addLayer({
               "id" : "newpoints",
               "type" : "symbol",
               "source" : {
@@ -183,7 +184,7 @@
                     "icon-size" : 2
                 }
 
-            });
+            });*/
         {% else %}
         map.addSource("pxdatasource", {
             "type":"geojson",
@@ -229,6 +230,8 @@
 
         comment = "Add user layers";
         var layers = [];
+        var layericons = [];
+
         {% for layer in userlayers %}
             var layertype = "circle";
             {% if layer["type"] %}
@@ -252,17 +255,19 @@
                 "paint": layerpaint, 
                 "layout": layerlayout
             };
-            layers.push([newlayer, {{layer["order"]|jsonify}}]);
+            layers.push(newlayer);
+            layericons.push({{layer["source"]["data"]["features"][0]["properties"]["icon"]|jsonify}});
         {% endfor %}
-        layers.sort(function(a,b) {
-            return a[1] - b[1];
-        });
         for (layersi=layers.length-1; layersi>=0; layersi--) {
-            map.addLayer(layers[layersi][0]);
+            map.addLayer(layers[layersi]);
             comment = "User layer legend";
             {%if this.options.get("legend") == "true" %}
-                var t = document.createElement("h4");
-                t.appendChild(document.createTextNode(layers[layersi][0].id));
+                var t = document.createElement("div");
+                var lid = layers[layersi].id;
+                var ip = document.createElement("span");
+                ip.className = "icon " + layericons[layersi];
+                t.appendChild(ip);
+                t.appendChild(document.createTextNode(lid));
                 document.getElementById("maplegend").appendChild(t);
             {% endif %}
         }
