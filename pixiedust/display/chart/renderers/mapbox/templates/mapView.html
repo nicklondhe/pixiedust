@@ -7,6 +7,7 @@
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js"></script>
     <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css" rel="stylesheet" />
     <link href="https://www.mapbox.com/base/latest/base.css" rel="stylesheet" />
+    <link href="https://www.mapbox.com/maki/www/maki-sprite.css" rel="stylesheet" />
     <style>
     .mapboxgl-popup-content h3 { 
         margin: 2px 0 2px 0;
@@ -39,6 +40,11 @@
         height: 10px;
         margin-right: 5px;
         width: 10px;
+    }
+    .custicon {
+        zoom: 0.5;
+        -moz-transform:scale(0.5);
+        -moz-transform-origin: 0 0;
     }
     body { 
         background-color:#333; 
@@ -265,7 +271,9 @@
                 var t = document.createElement("div");
                 var lid = layers[layersi].id;
                 var ip = document.createElement("span");
-                ip.className = "icon " + layericons[layersi];
+                ip.className = "custicon maki-icon " + layericons[layersi];
+                ip.style.height = "25px";
+                ip.style.width = "25px";
                 t.appendChild(ip);
                 t.appendChild(document.createTextNode(lid));
                 document.getElementById("maplegend").appendChild(t);
